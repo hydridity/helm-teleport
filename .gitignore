@@ -1,0 +1,2 @@
+charts/teleport-cluster/charts/*
+charts/teleport-cluster/Chart.lock
