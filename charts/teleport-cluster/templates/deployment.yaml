@@ -183,6 +183,12 @@ spec:
           name: "gcp-credentials"
           readOnly: true
 {{- end }}
+{{- if .Values.custom.etcd.mountSecret }}
+        - mountPath: {{ .Values.custom.etcd.password_file | default "/etc/teleport-password" }}
+          name: "etcd-password"
+          readOnly: true
+          subPath: etcd-root-password
+{{- end }}
 {{- if .Values.highAvailability.certManager.enabled }}
         - mountPath: /etc/teleport-tls
           name: "teleport-tls"
@@ -215,6 +221,11 @@ spec:
       - name: gcp-credentials
         secret:
           secretName: {{ required "gcp.credentialSecretName is required in chart values" .Values.gcp.credentialSecretName }}
+{{- end }}
+{{- if .Values.custom.etcd.mountSecret }}
+      - name: etcd-password
+        secret:
+          secretName: {{ .Release.Name }}-etcd
 {{- end }}
 {{- if .Values.highAvailability.certManager.enabled }}
       - name: teleport-tls

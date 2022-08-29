@@ -96,6 +96,7 @@ custom:
     password_file: ""
     prefix: ""
     insecure: true
+    mountSecret: true
   audit:
     uri: ""
 
